@@ -10,7 +10,6 @@ export const Layout = () => {
         <>
             <nav className={styles.layout}>
                 <Header />
-
                 <Outlet />
                 <Footer />
             </nav>
