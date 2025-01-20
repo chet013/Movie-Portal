@@ -5,7 +5,6 @@ export const Login = () => {
     return (
         <div className={styles.loginPage}>
             <Registartion />
-
         </div >
     )
 }
