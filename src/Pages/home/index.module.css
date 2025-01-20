@@ -5,24 +5,12 @@
     justify-content: flex-start;
     min-height: 84vh;
     padding: 20px;
+    width: 1000px;
+    margin: 0 auto
 }
 
 .movieList {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    list-style: none;
-    padding: 0;
-}
-
-.movieItem {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    width: 200px;
-}
-
-.movieItem img {
-    border-radius: 4px;
+    flex-direction: column;
+    gap: 10px;
 }

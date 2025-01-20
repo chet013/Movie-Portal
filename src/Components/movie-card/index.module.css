@@ -1,0 +1,14 @@
+.card {
+    display: flex;
+    align-items: flex-start;
+    min-width: 700px;
+    border-radius: 6px;
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
+    gap: 15px
+}
+
+.logo {
+    width: 130px;
+    border-radius: 6px;
+}

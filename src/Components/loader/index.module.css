@@ -1,43 +1,43 @@
 .loader {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(165deg,
-            rgb(138, 165, 201) 0%,
-            rgb(220, 220, 220) 40%,
-            rgb(170, 170, 170) 98%,
-            rgb(10, 10, 10) 100%);
-    border-radius: 50%;
+    width: 8px;
+    height: 40px;
+    border-radius: 4px;
+    display: block;
+    margin: 20px auto;
     position: relative;
+    background: currentColor;
+    color: #7c7c7c;
+    box-sizing: border-box;
+    animation: animloader 0.3s 0.3s linear infinite alternate;
     margin-top: 25%;
 }
 
-.loader:before {
+.loader::after,
+.loader::before {
+    content: '';
+    width: 8px;
+    height: 40px;
+    border-radius: 4px;
+    background: currentColor;
     position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-    border-bottom: 0 solid rgba(255, 255, 255, 0.02);
-    box-shadow: 0 -10px 20px 20px rgba(52, 41, 62, 0.4) inset,
-        /* Фиолетовый */
-        0 -5px 15px 10px rgba(42, 79, 107, 0.5) inset,
-        /* Индиго */
-        0 -2px 5px rgba(74, 106, 122, 0.8) inset,
-        /* Темно-синий */
-        0 -3px 2px rgba(155, 168, 104, 0.9) inset,
-        /* Лавандовый */
-        0 2px 0px rgb(52, 43, 226),
-        /* Фиолетовый */
-        0 2px 3px rgba(43, 226, 192, 0.9),
-        0 5px 5px rgba(61, 139, 131, 0.7),
-        0 10px 15px rgba(136, 99, 161, 0.6),
-        0 10px 20px 20px rgba(151, 238, 229, 0.4);
-    filter: blur(3px);
-    animation: 2s rotate linear infinite;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+    box-sizing: border-box;
+    animation: animloader 0.3s 0.45s linear infinite alternate;
 }
 
-@keyframes rotate {
+.loader::before {
+    left: -20px;
+    animation-delay: 0s;
+}
+
+@keyframes animloader {
+    0% {
+        height: 48px
+    }
+
     100% {
-        transform: rotate(360deg)
+        height: 4px
     }
 }
