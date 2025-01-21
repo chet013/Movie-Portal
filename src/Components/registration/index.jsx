@@ -1,8 +1,5 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import styles from './index.module.css';
-
-
 
 const onFinish = (values) => {
     console.log('Success:', values);
@@ -63,7 +60,7 @@ const Registartion = () => (
         </Form.Item>
 
         <Form.Item label={null}>
-            <Button color="default" variant="solid" htmlType="submit" className={styles.logoBtn}>
+            <Button color="default" variant="solid" htmlType="submit" >
                 Submit
             </Button>
         </Form.Item>
