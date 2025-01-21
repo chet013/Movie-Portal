@@ -14,3 +14,15 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.movieButton {
+    cursor: pointer;
+    border: solid 1px rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    padding: 0;
+
+}
+
+.movieButton:active {
+    border: solid 1px black;
+}
