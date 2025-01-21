@@ -2,6 +2,7 @@ import styles from './index.module.css';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from '../../Components/loader';
 import { MovieCard } from '../../Components/movie-card';
+import Searchfild from '../../Components/serch-input';
 
 import React from 'react';
 import { useGetMoviesQuery } from '../../features/movieApiSlice';
@@ -9,6 +10,10 @@ import { useGetMoviesQuery } from '../../features/movieApiSlice';
 export const Home = () => {
     const navigate = useNavigate();
     const { data, error, isLoading } = useGetMoviesQuery();
+
+    const handleSearch = (word) => {
+        console.log('Searching for:', word);
+    };
 
     if (error) {
         return <p className={styles.home}>Failed to load movies. Try again later.</p>;
@@ -25,7 +30,9 @@ export const Home = () => {
                 <Loader />
             ) : (
                 <div className={styles.movieList}>
+
                     <h1>Movies</h1>
+                    <Searchfild onSearch={handleSearch} />
                     {data?.Search.map((movie) => (
                         <button
                             key={movie.imdbID}
