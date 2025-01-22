@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import { useUser } from '../../app/context';
 import styles from './index.module.css';
 
 const Registration = () => {
+    const { setUser, setAuthorized } = useUser();
     const [isRegistered, setIsRegistered] = useState(true);
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const [formData, setFormData] = useState({
         login: '',
         password: '',
         confirmPassword: '',
     });
-
     const [error, setError] = useState('');
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -19,11 +22,13 @@ const Registration = () => {
         }));
     };
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
 
         if (!isRegistered) {
+
             if (formData.password.length < 8) {
                 setError('Password must be at least 8 characters long');
                 return;
@@ -37,27 +42,37 @@ const Registration = () => {
                 return;
             }
 
-            localStorage.setItem(`login - ${formData.login}`, formData.login)
-            localStorage.setItem(`password - ${formData.login}`, formData.password)
-
-            console.log('Register:', {
-                login: formData.login,
-                password: formData.password,
-            });
-
+            // Сохраняем нового пользователя в Local Storage
+            localStorage.setItem(
+                `user-${formData.login}`,
+                JSON.stringify({ login: formData.login, password: formData.password })
+            );
+            setIsRegistered(true);
+        } else if (isAuthorized) {
+            setError('You are already logged in')
         } else {
-
-            if (localStorage.getItem(`login - ${formData.login}`) !== formData.login) {
-                setError('Invalid login')
-
+            const storedUser = localStorage.getItem(`user-${formData.login}`);
+            if (!storedUser) {
+                setError('Invalid login');
+                return;
+            }
+            const parsedUser = JSON.parse(storedUser);
+            if (parsedUser.password !== formData.password) {
+                setError('Invalid password');
+                return;
             }
 
-            if (localStorage.getItem(`password - ${formData.login}`) !== formData.password) {
-                setError('Invalid password')
-            }
+            const updatedUser = { ...parsedUser, authorized: true };
+            localStorage.setItem(`user-${formData.login}`, JSON.stringify(updatedUser));
 
-            setIsRegistered(true)
-            console.log('Login:', { login: formData.login, password: formData.password });
+            // Установка состояния в контексте
+            setUser(updatedUser.login);
+            setAuthorized(updatedUser.authorized);
+
+
+            setIsAuthorized(true)
+
+            console.log('user:', formData.login, 'authorized', updatedUser.authorized)
         }
     };
 
@@ -106,6 +121,7 @@ const Registration = () => {
                     onClick={() => {
                         setIsRegistered((prev) => !prev);
                         setError('');
+                        setFormData({ login: '', password: '', confirmPassword: '' });
                     }}
                 >
                     {isRegistered ? ' Register' : ' Login'}
