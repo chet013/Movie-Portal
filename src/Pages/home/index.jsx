@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Loader } from '../../Components/loader';
 import { MovieCard } from '../../Components/movie-card';
 import Searchfild from '../../Components/serch-input';
+import { Button } from 'antd';
+
 
 import React from 'react';
 import { useGetMoviesQuery } from '../../features/movieApiSlice';
@@ -30,6 +32,17 @@ export const Home = () => {
                 <Loader />
             ) : (
                 <div className={styles.movieList}>
+
+                    <Button
+                        onClick={() => navigate('/login', { replace: false })}
+                        type="primary"
+                        htmlType="submit"
+                        color="default"
+                        variant="solid"
+                        className={styles.logBtn}
+                    >
+                        Login / Registartion
+                    </Button>
 
                     <h1>Movies</h1>
                     <Searchfild onSearch={handleSearch} />

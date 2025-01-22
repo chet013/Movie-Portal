@@ -63,7 +63,6 @@ export const Movie = () => {
                         </div>
                     </>
             }
-
         </div>
     );
 };

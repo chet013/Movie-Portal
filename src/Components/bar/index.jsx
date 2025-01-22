@@ -5,8 +5,6 @@ import { Button } from 'antd';
 const links = [
     { name: 'Home', path: 'home' },
     { name: 'Favorites', path: 'favorites' },
-    { name: 'Login', path: 'login' },
-
 ];
 
 export const Bar = () => {
