@@ -14,3 +14,17 @@
     margin: 5px 0;
     cursor: pointer;
 }
+
+.inform {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.loginInfo {
+    width: 110px;
+}
+
+.image {
+    height: 30px;
+}
