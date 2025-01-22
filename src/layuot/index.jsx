@@ -5,7 +5,6 @@ import styles from './index.module.css';
 
 export const Layout = () => {
 
-
     return (
         <>
             <nav className={styles.layout}>
