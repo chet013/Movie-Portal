@@ -1,13 +1,13 @@
+import React from 'react';
 import styles from './index.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../app/context';
 import { Loader } from '../../Components/loader';
 import { MovieCard } from '../../Components/movie-card';
 import Searchfild from '../../Components/serch-input';
+import { ErrorPage } from '../404/index'
 import { Button } from 'antd';
 
-
-import React from 'react';
 import { useGetMoviesQuery } from '../../features/movieApiSlice';
 
 export const Home = () => {
@@ -20,7 +20,7 @@ export const Home = () => {
     };
 
     if (error) {
-        return <p className={styles.home}>Failed to load movies. Try again later.</p>;
+        return <ErrorPage />;
     }
 
     const handleNavigate = (movieId) => {

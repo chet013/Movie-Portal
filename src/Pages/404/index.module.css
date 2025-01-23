@@ -1,0 +1,19 @@
+.errorContainer {
+    display: flex;
+    min-height: 80vh;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.errorContainer h1 {
+    margin: 0;
+    font-size: 100px;
+    color: #ff6b6b;
+}
+
+.errorContainer p {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}

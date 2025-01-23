@@ -20,7 +20,7 @@ export const Footer = () => {
             <div className={styles.inform}>
                 <img
                     className={styles.image}
-                    src={'/darck theme.png'}
+                    src={'/darck-theme.png'}
                     alt={'img'}
                 />
             </div>

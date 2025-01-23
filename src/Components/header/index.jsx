@@ -33,11 +33,6 @@ export const Header = () => {
             <Bar />
             <div className={styles.inform}>
                 <p className={styles.logInfo}>{displayUser}</p>
-                <img
-                    className={styles.imageDarck}
-                    src={'/darck-theme.png'}
-                    alt={'darck theme toggle'}
-                />
             </div>
         </div>
     );
