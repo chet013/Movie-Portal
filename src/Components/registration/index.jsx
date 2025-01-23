@@ -28,7 +28,6 @@ const Registration = () => {
         setError('');
 
         if (!isRegistered) {
-
             if (formData.password.length < 8) {
                 setError('Password must be at least 8 characters long');
                 return;
@@ -42,15 +41,15 @@ const Registration = () => {
                 return;
             }
 
-            // Сохраняем нового пользователя в Local Storage
             localStorage.setItem(
                 `user-${formData.login}`,
-                JSON.stringify({ login: formData.login, password: formData.password })
+                JSON.stringify({ login: formData.login, password: formData.password, authorized: false })
             );
             setIsRegistered(true);
         } else if (isAuthorized) {
             setError('You are already logged in')
-        } else {
+        }
+        else {
             const storedUser = localStorage.getItem(`user-${formData.login}`);
             if (!storedUser) {
                 setError('Invalid login');
@@ -64,15 +63,13 @@ const Registration = () => {
 
             const updatedUser = { ...parsedUser, authorized: true };
             localStorage.setItem(`user-${formData.login}`, JSON.stringify(updatedUser));
+            localStorage.setItem('current-user', JSON.stringify(updatedUser)); // Сохраняем текущего пользователя
 
-            // Установка состояния в контексте
             setUser(updatedUser.login);
             setAuthorized(updatedUser.authorized);
 
-
             setIsAuthorized(true)
-
-            console.log('user:', formData.login, 'authorized', updatedUser.authorized)
+            console.log('User logged in:', updatedUser);
         }
     };
 
