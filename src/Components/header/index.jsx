@@ -59,3 +59,20 @@ export const Header = () => {
         </div>
     );
 };
+
+
+
+
+
+// const localStorage = {
+//     moviPortal: {
+//         users: [
+//             {
+//                 login: 123,
+//                 password: 123,
+//                 isAutorized: false,
+//                 favoritesMoviesIds: []
+//             }
+//         ],
+//     }
+// }
