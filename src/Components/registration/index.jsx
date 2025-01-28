@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../app/context';
 import styles from './index.module.css';
 
 const Registration = () => {
+    const navigate = useNavigate();
     const { setUser, setAuthorized } = useUser();
+    const [isDisabled, setIsDisabled] = useState(false);
     const [isRegistered, setIsRegistered] = useState(true); // Переключение между "Вход" и "Регистрация"
     const [formData, setFormData] = useState({
         login: '',
@@ -18,8 +21,10 @@ const Registration = () => {
         if (savedUser && savedUser.isAuthorized) {
             setUser(savedUser.login);
             setAuthorized(true);
+            setIsDisabled(true);
+            navigate('/home', { replace: true }); // Перенаправляем, если уже авторизован
         }
-    }, [setUser, setAuthorized]);
+    }, [setUser, setAuthorized, navigate]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -41,8 +46,8 @@ const Registration = () => {
         const storedData = JSON.parse(localStorage.getItem('moviPortal')) || { users: [] };
         const { users } = storedData;
 
-        // Регистрация
         if (!isRegistered) {
+            // Регистрация
             if (formData.password.length < 8 || formData.login.length < 8) {
                 setError('Login and Password must be at least 8 characters long');
                 return;
@@ -52,14 +57,12 @@ const Registration = () => {
                 return;
             }
 
-            // Проверяем, существует ли уже пользователь с таким логином
             const userExists = users.some((user) => user.login === formData.login);
             if (userExists) {
                 setError('User already exists');
                 return;
             }
 
-            // Добавляем нового пользователя в массив
             const newUser = {
                 login: formData.login,
                 password: formData.password,
@@ -67,17 +70,14 @@ const Registration = () => {
                 favoritesMoviesIds: [],
             };
             storedData.users.push(newUser);
-
-            // Сохраняем обновлённые данные
             localStorage.setItem('moviPortal', JSON.stringify(storedData));
             setIsRegistered(true);
             resetForm();
             return;
         }
 
-        // Вход
+        // Логин
         const user = users.find((u) => u.login === formData.login);
-
         if (!user) {
             setError('User not found');
             return;
@@ -87,15 +87,21 @@ const Registration = () => {
             return;
         }
 
-        // Обновляем статус авторизации у пользователя
-        user.isAuthorized = true;
-        localStorage.setItem('moviPortal', JSON.stringify(storedData));
+        // Сбрасываем авторизацию у всех пользователей
+        const updatedUsers = users.map((u) =>
+            u.login === user.login
+                ? { ...u, isAuthorized: true }
+                : { ...u, isAuthorized: false }
+        );
+        localStorage.setItem('moviPortal', JSON.stringify({ users: updatedUsers }));
 
         // Сохраняем текущего пользователя
-        localStorage.setItem('current-user', JSON.stringify(user));
+        localStorage.setItem('current-user', JSON.stringify({ ...user, isAuthorized: true }));
         setUser(user.login);
         setAuthorized(true);
+        setIsDisabled(true);
         resetForm();
+        navigate('/home', { replace: true });
     };
 
     return (
@@ -103,18 +109,20 @@ const Registration = () => {
             <h2>{isRegistered ? 'Login' : 'Register'}</h2>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <input
+                    disabled={isDisabled}
                     type="text"
                     name="login"
-                    placeholder="Login"
+                    placeholder={isDisabled ? 'The user is already authorized' : 'Login'}
                     value={formData.login}
                     onChange={handleInputChange}
                     className={styles.input}
                     required
                 />
                 <input
+                    disabled={isDisabled}
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder={isDisabled ? 'The user is already authorized' : 'Password'}
                     value={formData.password}
                     onChange={handleInputChange}
                     className={styles.input}
@@ -132,7 +140,11 @@ const Registration = () => {
                     />
                 )}
                 {error && <p className={styles.formError}>{error}</p>}
-                <button type="submit" className={styles.button}>
+                <button
+                    type="submit"
+                    className={styles.button}
+                    disabled={isDisabled} // Заблокировано, если пользователь авторизован
+                >
                     {isRegistered ? 'Login' : 'Register'}
                 </button>
             </form>
