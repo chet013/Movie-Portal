@@ -1,3 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
 .favorites {
     min-height: 84vh;
+}
+
+.favoritesLoginContainer {
+    min-height: 62vh;
+    margin-top: 100px;
+}
+
+.favoritesLoginDiscription {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    font-size: xx-large;
+}
+
+.logBtn {
+    margin-top: 20px;
 }
