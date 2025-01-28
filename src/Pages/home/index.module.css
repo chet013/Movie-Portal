@@ -9,15 +9,17 @@
     margin: 0 auto
 }
 
-.logBtn {
-    width: 150px;
-    margin-left: auto;
+.notFaund {
+    font-size: 50px;
+    text-align: center;
+    margin-top: 150px;
 }
 
 .movieList {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-width: 75%;
 }
 
 .movieList h1 {

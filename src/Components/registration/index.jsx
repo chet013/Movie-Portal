@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUser } from '../../app/context';
 import styles from './index.module.css';
 
 const Registration = () => {
     const { setUser, setAuthorized } = useUser();
-    const [isRegistered, setIsRegistered] = useState(true);
-    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(true); // Переключение между "Вход" и "Регистрация"
     const [formData, setFormData] = useState({
         login: '',
         password: '',
@@ -13,6 +12,14 @@ const Registration = () => {
     });
     const [error, setError] = useState('');
 
+    useEffect(() => {
+        // Проверяем, есть ли авторизованный пользователь
+        const savedUser = JSON.parse(localStorage.getItem('current-user'));
+        if (savedUser && savedUser.isAuthorized) {
+            setUser(savedUser.login);
+            setAuthorized(true);
+        }
+    }, [setUser, setAuthorized]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -22,18 +29,22 @@ const Registration = () => {
         }));
     };
 
+    const resetForm = () => {
+        setFormData({ login: '', password: '', confirmPassword: '' });
+        setError('');
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
 
+        const storedData = JSON.parse(localStorage.getItem('moviPortal')) || { users: [] };
+        const { users } = storedData;
+
+        // Регистрация
         if (!isRegistered) {
-            if (formData.password.length < 8) {
-                setError('Password must be at least 8 characters long');
-                return;
-            }
-            if (formData.login.length < 8) {
-                setError('Login must be at least 8 characters long');
+            if (formData.password.length < 8 || formData.login.length < 8) {
+                setError('Login and Password must be at least 8 characters long');
                 return;
             }
             if (formData.password !== formData.confirmPassword) {
@@ -41,36 +52,50 @@ const Registration = () => {
                 return;
             }
 
-            localStorage.setItem(
-                `user-${formData.login}`,
-                JSON.stringify({ login: formData.login, password: formData.password, authorized: false })
-            );
+            // Проверяем, существует ли уже пользователь с таким логином
+            const userExists = users.some((user) => user.login === formData.login);
+            if (userExists) {
+                setError('User already exists');
+                return;
+            }
+
+            // Добавляем нового пользователя в массив
+            const newUser = {
+                login: formData.login,
+                password: formData.password,
+                isAuthorized: false,
+                favoritesMoviesIds: [],
+            };
+            storedData.users.push(newUser);
+
+            // Сохраняем обновлённые данные
+            localStorage.setItem('moviPortal', JSON.stringify(storedData));
             setIsRegistered(true);
-        } else if (isAuthorized) {
-            setError('You are already logged in')
+            resetForm();
+            return;
         }
-        else {
-            const storedUser = localStorage.getItem(`user-${formData.login}`);
-            if (!storedUser) {
-                setError('Invalid login');
-                return;
-            }
-            const parsedUser = JSON.parse(storedUser);
-            if (parsedUser.password !== formData.password) {
-                setError('Invalid password');
-                return;
-            }
 
-            const updatedUser = { ...parsedUser, authorized: true };
-            localStorage.setItem(`user-${formData.login}`, JSON.stringify(updatedUser));
-            localStorage.setItem('current-user', JSON.stringify(updatedUser)); // Сохраняем текущего пользователя
+        // Вход
+        const user = users.find((u) => u.login === formData.login);
 
-            setUser(updatedUser.login);
-            setAuthorized(updatedUser.authorized);
-
-            setIsAuthorized(true)
-            console.log('User logged in:', updatedUser);
+        if (!user) {
+            setError('User not found');
+            return;
         }
+        if (user.password !== formData.password) {
+            setError('Invalid password');
+            return;
+        }
+
+        // Обновляем статус авторизации у пользователя
+        user.isAuthorized = true;
+        localStorage.setItem('moviPortal', JSON.stringify(storedData));
+
+        // Сохраняем текущего пользователя
+        localStorage.setItem('current-user', JSON.stringify(user));
+        setUser(user.login);
+        setAuthorized(true);
+        resetForm();
     };
 
     return (
@@ -117,8 +142,7 @@ const Registration = () => {
                     className={styles.switchLink}
                     onClick={() => {
                         setIsRegistered((prev) => !prev);
-                        setError('');
-                        setFormData({ login: '', password: '', confirmPassword: '' });
+                        resetForm();
                     }}
                 >
                     {isRegistered ? ' Register' : ' Login'}

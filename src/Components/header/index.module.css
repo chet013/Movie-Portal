@@ -1,30 +1,36 @@
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 0 15px;
-    color: white;
+    position: relative;
+    height: 60px;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
     background-color: #343b45;
 }
 
 .logoBtn {
-    border-style: none;
-    cursor: pointer;
+    position: absolute;
     background-color: inherit;
-    margin: 5px 0;
-    cursor: pointer;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .inform {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    color: white;
 }
 
-.loginInfo {
-    width: 110px;
-}
-
-.imageDarck {
-    height: 30px;
+.movieList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }

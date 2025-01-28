@@ -54,7 +54,7 @@ export const Home = () => {
                 <div className={styles.movieList}>
                     <h1>Movies</h1>
                     <Searchfild onSearch={handleSearch} />
-                    {isNotFaund && <div>Ничего не найдено</div>}
+                    {isNotFaund && <div className={styles.notFaund}>Ничего не найдено :(</div>}
                     {!isNotFaund && movies && movies.map((movie) => (
                         <button
                             key={movie.imdbID}
