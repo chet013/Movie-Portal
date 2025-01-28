@@ -3,15 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../app/context';
 import { Bar } from '../bar/index';
 import styles from './index.module.css';
-import { Button } from 'antd'
+import { Button } from 'antd';
 
 export const Header = () => {
     const navigate = useNavigate();
-    const { user, authorized } = useUser();
+    const { user, authorized, setUser, setAuthorized } = useUser();
     const [displayUser, setDisplayUser] = useState('');
 
     useEffect(() => {
-
         if (authorized) {
             setDisplayUser(`User: ${user}`);
         } else {
@@ -19,14 +18,27 @@ export const Header = () => {
         }
     }, [user, authorized]);
 
-    const handleExit = () => {
-        // сохраняем данные юзера в Local Storage
-        const currentUser = JSON.parse(localStorage.getItem('current-user'));
-        if (currentUser) {
-            const updatedUser = { ...currentUser, authorized: false };
-            localStorage.setItem('current-user', JSON.stringify(updatedUser));
-        }
+    const handleExitLogin = () => {
+        // Получаем массив всех пользователей
+        const storedData = JSON.parse(localStorage.getItem('moviPortal')) || { users: [] };
 
+        // Обновляем всех пользователей, устанавливая isAuthorized в false
+        const updatedUsers = storedData.users.map((user) => ({
+            ...user,
+            isAuthorized: false
+        }));
+
+        // Сохраняем обновлённый массив пользователей
+        localStorage.setItem('moviPortal', JSON.stringify({ users: updatedUsers }));
+
+        // Удаляем текущего пользователя из localStorage
+        localStorage.removeItem('current-user');
+
+        // Сбрасываем состояние в контексте
+        setUser(null);
+        setAuthorized(false);
+
+        // Перенаправляем пользователя на страницу входа
         navigate('/login', { replace: true });
     };
 
@@ -44,8 +56,11 @@ export const Header = () => {
             </button>
             <Bar />
             <div className={styles.inform}>
+                <p className={styles.logInfo}>{displayUser}</p>
                 <Button
-                    onClick={() => (authorized ? handleExit() : navigate('/login', { replace: false }))}
+                    onClick={() =>
+                        authorized ? handleExitLogin() : navigate('/login', { replace: false })
+                    }
                     type="primary"
                     htmlType="submit"
                     color="default"
@@ -54,25 +69,7 @@ export const Header = () => {
                 >
                     {authorized ? 'Exit' : 'Login / Registration'}
                 </Button>
-                <p className={styles.logInfo}>{displayUser}</p>
             </div>
         </div>
     );
 };
-
-
-
-
-
-// const localStorage = {
-//     moviPortal: {
-//         users: [
-//             {
-//                 login: 123,
-//                 password: 123,
-//                 isAutorized: false,
-//                 favoritesMoviesIds: []
-//             }
-//         ],
-//     }
-// }
