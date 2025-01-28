@@ -1,36 +1,18 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { Loader } from '../../Components/loader';
+import { useGetFilmQuery } from '../../api/movieApiSlice'
 import styles from './index.module.css';
-
-const API_KEY = 'acdfa7c6'
 
 export const Movie = () => {
     const { id } = useParams();
-    const [movie, setMovie] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
 
+    const { data, error, isLoading } = useGetFilmQuery(id);
 
-    useEffect(() => {
-        const fetchMovie = async () => {
-            try {
-                const response = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`);
-                const data = await response.json();
-                if (data.Response === 'True') {
-                    setMovie(data);
-                } else {
-                    setError(data.Error);
-                }
-            } catch (err) {
-                setError('Failed to fetch movie data.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    const movie = data
 
-        fetchMovie();
-    }, [id]);
+    const handleClickLike = () => {
+
+    }
 
     if (error) {
         return <p className={styles.error}>{error}</p>;
@@ -55,7 +37,7 @@ export const Movie = () => {
                                 <p>Actors: {movie.Actors}</p>
                                 <div className={styles.managWrapper}>
                                     <p>Add to favorites</p>
-                                    <button>
+                                    <button onClick={handleClickLike}>
                                         🖤
                                     </button>
                                 </div>
