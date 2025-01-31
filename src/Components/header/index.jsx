@@ -10,26 +10,20 @@ export const Header = () => {
     const { user, authorized, setUser, setAuthorized } = useUser();
 
     const handleExitLogin = () => {
-        // Получаем массив всех пользователей
         const storedData = JSON.parse(localStorage.getItem('moviPortal')) || { users: [] };
 
-        // Обновляем всех пользователей, устанавливая isAuthorized в false
         const updatedUsers = storedData.users.map((user) => ({
             ...user,
             isAuthorized: false
         }));
 
-        // Сохраняем обновлённый массив пользователей
         localStorage.setItem('moviPortal', JSON.stringify({ users: updatedUsers }));
 
-        // Удаляем текущего пользователя из localStorage
         localStorage.removeItem('current-user');
 
-        // Сбрасываем состояние в контексте
         setUser(null);
         setAuthorized(false);
 
-        // Перенаправляем пользователя на страницу входа
         navigate('/login', { replace: true });
     };
 

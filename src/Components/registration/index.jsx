@@ -5,9 +5,10 @@ import styles from './index.module.css';
 
 const Registration = () => {
     const navigate = useNavigate();
-    const { setUser, setAuthorized } = useUser();
+    const { setFavoritesMoviesIds, setUser, setAuthorized } = useUser();
+
     const [isDisabled, setIsDisabled] = useState(false);
-    const [isRegistered, setIsRegistered] = useState(true); // Переключение между "Вход" и "Регистрация"
+    const [isRegistered, setIsRegistered] = useState(true);
     const [formData, setFormData] = useState({
         login: '',
         password: '',
@@ -16,13 +17,12 @@ const Registration = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        // Проверяем, есть ли авторизованный пользователь
         const savedUser = JSON.parse(localStorage.getItem('current-user'));
         if (savedUser && savedUser.isAuthorized) {
             setUser(savedUser.login);
             setAuthorized(true);
             setIsDisabled(true);
-            navigate('/home', { replace: true }); // Перенаправляем, если уже авторизован
+            navigate('/home', { replace: true });
         }
     }, [setUser, setAuthorized, navigate]);
 
@@ -87,7 +87,6 @@ const Registration = () => {
             return;
         }
 
-        // Сбрасываем авторизацию у всех пользователей
         const updatedUsers = users.map((u) =>
             u.login === user.login
                 ? { ...u, isAuthorized: true }
@@ -95,9 +94,11 @@ const Registration = () => {
         );
         localStorage.setItem('moviPortal', JSON.stringify({ users: updatedUsers }));
 
-        // Сохраняем текущего пользователя
-        localStorage.setItem('current-user', JSON.stringify({ ...user, isAuthorized: true }));
+        const currentUser = { ...user, isAuthorized: true };
+        localStorage.setItem('current-user', JSON.stringify(currentUser));
+
         setUser(user.login);
+        setFavoritesMoviesIds([])
         setAuthorized(true);
         setIsDisabled(true);
         resetForm();
@@ -143,7 +144,7 @@ const Registration = () => {
                 <button
                     type="submit"
                     className={styles.button}
-                    disabled={isDisabled} // Заблокировано, если пользователь авторизован
+                    disabled={isDisabled}
                 >
                     {isRegistered ? 'Login' : 'Register'}
                 </button>
