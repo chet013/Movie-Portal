@@ -1,71 +1,58 @@
 import { useParams } from 'react-router-dom';
-
 import { useNavigate } from 'react-router-dom';
-
 import { Loader } from '../../Components/loader';
 import { useGetFilmQuery } from '../../api/movieApiSlice';
 import styles from './index.module.css';
 import { useState, useEffect } from 'react';
+import { useUser } from '../../app/context';
 
 export const Movie = () => {
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
     const { id } = useParams();
     const { data, error, isLoading } = useGetFilmQuery(id);
-
+    const { authorized, toggleFavorite } = useUser();
     const movie = data;
 
-    const currentUser = JSON.parse(localStorage.getItem('current-user'));
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        // Проверяем, является ли фильм избранным при загрузке компонента
-        if (currentUser && currentUser.favoritesMoviesIds?.includes(id)) {
+        const currentUser = JSON.parse(localStorage.getItem('current-user'));
+        if (currentUser?.favoritesMoviesIds?.includes(id)) {
             setIsFavorite(true);
+        } else {
+            setIsFavorite(false);
         }
-    }, [currentUser, id]);
+    }, [id, authorized]);
 
     const handleClickLike = () => {
-        console.log(id)
-
-        // Проверяем авторизацию пользователя
-        if (!currentUser || !currentUser.isAuthorized) {
-            navigate('/login', { replace: true }); // Перенаправляем на логин, если не авторизован
+        if (!authorized) {
+            navigate('/login', { replace: true });
             return;
         }
 
-        // Получаем всех пользователей
         const storedData = JSON.parse(localStorage.getItem('moviPortal')) || { users: [] };
-        const { users } = storedData;
+        const currentUser = JSON.parse(localStorage.getItem('current-user'));
 
-        // Ищем текущего пользователя
-        const userIndex = users.findIndex((user) => user.login === currentUser.login);
-        if (userIndex === -1) {
 
-            return;
-        }
 
-        // Локальная копия избранных фильмов пользователя
-        let updatedFavorites = [...users[userIndex].favoritesMoviesIds];
+        const users = storedData.users.map((user) => {
+            if (user.login === currentUser.login) {
+                const updatedFavorites = isFavorite
+                    ? user.favoritesMoviesIds.filter((movieId) => movieId !== id)
+                    : [...new Set([...user.favoritesMoviesIds, id])]; // Убираем дубли
 
-        if (isFavorite) {
-            // Удаляем фильм из избранного
-            updatedFavorites = updatedFavorites.filter((movieId) => movieId !== id);
-        } else {
-            // Добавляем фильм в избранное
-            updatedFavorites.push(id);
-        }
+                return { ...user, favoritesMoviesIds: updatedFavorites };
+            }
+            return user;
+        });
 
-        // Обновляем данные пользователя
-        users[userIndex].favoritesMoviesIds = updatedFavorites;
         localStorage.setItem('moviPortal', JSON.stringify({ users }));
 
-        // Обновляем текущего пользователя
-        const updatedUser = { ...currentUser, favoritesMoviesIds: updatedFavorites };
+        const updatedUser = users.find((user) => user.login === currentUser.login);
         localStorage.setItem('current-user', JSON.stringify(updatedUser));
 
-        // Обновляем локальное состояние
         setIsFavorite(!isFavorite);
+        toggleFavorite(id); // Сразу отображаем в избранном
     };
 
     if (error) {
@@ -93,7 +80,7 @@ export const Movie = () => {
                                 <p>{isFavorite ? 'Remove from favorites' : 'Add to favorites'}</p>
                                 <button
                                     onClick={handleClickLike}
-                                    style={{ color: isFavorite ? 'red ' : 'black' }}
+                                    style={{ color: isFavorite ? 'red' : 'black' }}
                                 >
                                     {isFavorite ? '🖤' : '❤️'}
                                 </button>
