@@ -5,11 +5,10 @@ import { useUser } from '../../app/context';
 import { FavoriteMovie } from '../../Components/movie-card/FavoriteMovie';
 import { Loader } from '../../Components/loader/Loader';
 
-export const Favorites = () => {
+export default function Favorites() {
     const { authorized, favoritesMoviesIds, loading } = useUser();
 
     const navigate = useNavigate();
-
 
     const handleNavigate = (id) => {
         navigate(`/movie/${id}`);

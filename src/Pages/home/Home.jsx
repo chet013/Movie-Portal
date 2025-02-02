@@ -10,7 +10,7 @@ import SearchField from '../../Components/serch-input/Serchfild';
 import { ErrorPage } from '../404/Errorpage';
 import { useGetMoviesMutation } from '../../api/movieApiSlice';
 
-export const Home = () => {
+export default function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const movies = useSelector(selectMovies);
@@ -45,7 +45,7 @@ export const Home = () => {
         navigate(`/movie/${movieId}`);
     };
 
-    // Фильтрация и сортировка списка фильмов
+
     const sortedMovies = Array.isArray(movies) ? [...movies].sort((a, b) => {
         switch (sortOrder) {
             case 'year-asc':
@@ -59,7 +59,7 @@ export const Home = () => {
             default:
                 return 0;
         }
-    }) : []; // Если movies не массив, то устанавливаем пустой массив
+    }) : [];
 
     return (
         <div className={styles.home}>
@@ -112,4 +112,5 @@ export const Home = () => {
             )}
         </div>
     );
+
 };
