@@ -1,5 +1,5 @@
 import styles from './index.module.css';
-import Registartion from '../../Components/registration/index'
+import Registartion from '../../Components/registration/Registration'
 
 export const Login = () => {
     return (

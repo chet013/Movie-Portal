@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Loader } from '../../Components/loader';
+import { Loader } from '../../Components/loader/Loader';
 import { useGetFilmQuery } from '../../api/movieApiSlice';
 import styles from './index.module.css';
 import { useState, useEffect } from 'react';
@@ -33,8 +33,6 @@ export const Movie = () => {
         const storedData = JSON.parse(localStorage.getItem('moviPortal')) || { users: [] };
         const currentUser = JSON.parse(localStorage.getItem('current-user'));
 
-
-
         const users = storedData.users.map((user) => {
             if (user.login === currentUser.login) {
                 const updatedFavorites = isFavorite
@@ -52,7 +50,7 @@ export const Movie = () => {
         localStorage.setItem('current-user', JSON.stringify(updatedUser));
 
         setIsFavorite(!isFavorite);
-        toggleFavorite(id); // Сразу отображаем в избранном
+        toggleFavorite(id);
     };
 
     if (error) {

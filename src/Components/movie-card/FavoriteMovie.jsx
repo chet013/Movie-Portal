@@ -1,7 +1,5 @@
-import { MovieCard } from './index';
+import { MovieCard } from './MovieCard';
 import { useGetFilmQuery } from '../../api/movieApiSlice';
-
-
 
 export const FavoriteMovie = ({ id }) => {
     const { data: movie, error, isLoading } = useGetFilmQuery(id);

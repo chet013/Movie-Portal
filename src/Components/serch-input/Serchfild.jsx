@@ -13,6 +13,7 @@ const Searchfild = ({ onSearch }) => {
 
     const clearInput = () => {
         setSearchTerm('');
+        onSearch('');
     };
 
     useEffect(() => {
@@ -30,11 +31,11 @@ const Searchfild = ({ onSearch }) => {
                 placeholder="Start typing to search movie..."
                 className={styles.search}
             />
-            {searchTerm && (
-                <button className={styles.clearButton} onClick={clearInput}>
-                    &#10005;
-                </button>
-            )}
+
+            <button className={styles.clearButton} onClick={clearInput}>
+                &#10005;
+            </button>
+
         </div>
     );
 };

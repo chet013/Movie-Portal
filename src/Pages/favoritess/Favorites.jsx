@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { useUser } from '../../app/context';
 import { FavoriteMovie } from '../../Components/movie-card/FavoriteMovie';
-import { Loader } from '../../Components/loader';
+import { Loader } from '../../Components/loader/Loader';
 
 export const Favorites = () => {
     const { authorized, favoritesMoviesIds, loading } = useUser();
