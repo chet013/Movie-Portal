@@ -6,7 +6,7 @@ import styles from './index.module.css';
 import { useState, useEffect } from 'react';
 import { useUser } from '../../app/context';
 
-export const Movie = () => {
+export default function Movie() {
     const navigate = useNavigate();
     const { id } = useParams();
     const { data, error, isLoading } = useGetFilmQuery(id);
