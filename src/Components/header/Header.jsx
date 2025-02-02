@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../app/context';
-import { Bar } from '../bar/index';
+import { Bar } from '../bar/Bar';
 import styles from './index.module.css';
 import { Button } from 'antd';
 

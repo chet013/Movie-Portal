@@ -62,7 +62,6 @@ export const UserProvider = ({ children }) => {
             };
             localStorage.setItem('current-user', JSON.stringify(currentUser));
         } else {
-            console.log('Removing user from localStorage');
             localStorage.removeItem('current-user');
         }
     }, [user, authorized, favoritesMoviesIds]);

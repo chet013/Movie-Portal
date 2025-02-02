@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Footer } from '../Components/footer';
-import { Header } from '../Components/header';
+import { Footer } from '../Components/footer/Footer';
+import { Header } from '../Components/header/Header';
 import styles from './index.module.css';
 import { UserProvider } from '../app/context';
 

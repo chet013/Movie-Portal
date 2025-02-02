@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store';
-import { Layout } from './layuot';
-import { Favorites } from './Pages/favoritess/index';
-import { Login } from './Pages/login/index';
-import { Home } from './Pages/home/index';
-import { Movie } from './Pages/movie';
+import { Layout } from './layuot/Layout';
+import { Favorites } from './Pages/favoritess/Favorites';
+import { Login } from './Pages/login/Login';
+import { Home } from './Pages/home/Home';
+import { Movie } from './Pages/movie/Movie';
 import './App.css';
 
 function App() {
