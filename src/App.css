@@ -1,3 +1,23 @@
 .App {
   text-align: center;
 }
+
+input {
+  background-color: #d0cece75;
+  color: rgb(0, 0, 0);
+  box-shadow: 0 0 10px rgba(230, 215, 215, 0.731);
+}
+
+input::placeholder {
+  color: rgb(58, 58, 58);
+  opacity: 1;
+  font-style: italic;
+}
+
+input:hover {
+  background-color: #ffffff75;
+}
+
+input:active {
+  background-color: #ffffff75;
+}

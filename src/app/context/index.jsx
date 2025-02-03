@@ -6,7 +6,10 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [authorized, setAuthorized] = useState(false);
     const [favoritesMoviesIds, setFavoritesMoviesIds] = useState([]);
-    const [loading, setLoading] = useState(true); // Состояние для ожидания загрузки данных
+    const [loading, setLoading] = useState(true);
+    const [isDarkTheme, setIsDarkTheme] = useState(false)
+
+
 
     const toggleFavorite = (movieId) => {  // Сразу отображаем в избранном
         setFavoritesMoviesIds((prevFavorites) => {
@@ -72,7 +75,9 @@ export const UserProvider = ({ children }) => {
                 setAuthorized,
                 favoritesMoviesIds,
                 setFavoritesMoviesIds,
-                toggleFavorite
+                toggleFavorite,
+                isDarkTheme,
+                setIsDarkTheme,
             }}
         >
             {children}

@@ -1,4 +1,5 @@
-.container {
+.container,
+.containerDark {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,9 +29,16 @@
     width: 100%;
 }
 
-.favoritesLoginContainer {
-    min-height: 62vh;
-    margin-top: 100px;
+.favoritesLoginContainer,
+.favoritesLoginContainerDark {
+    min-height: 84vh;
+    padding: 100px;
+}
+
+.containerDark,
+.favoritesLoginContainerDark {
+    background-color: rgba(0, 0, 0, 0.787);
+    min-height: 78vh;
 }
 
 .favoritesLoginDiscription {

@@ -5,7 +5,7 @@ import styles from './index.module.css';
 
 const Registration = () => {
     const navigate = useNavigate();
-    const { setFavoritesMoviesIds, setUser, setAuthorized } = useUser();
+    const { setFavoritesMoviesIds, setUser, setAuthorized, isDarkTheme } = useUser();
 
     const [isDisabled, setIsDisabled] = useState(false);
     const [isRegistered, setIsRegistered] = useState(true);
@@ -106,7 +106,7 @@ const Registration = () => {
     };
 
     return (
-        <div className={styles.container}>
+        <div className={!isDarkTheme ? styles.container : styles.containerDark}>
             <h2>{isRegistered ? 'Login' : 'Register'}</h2>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <input

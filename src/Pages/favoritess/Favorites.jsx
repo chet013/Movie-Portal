@@ -9,13 +9,13 @@ import { Loader } from '../../Components/loader/Loader';
 const MOVIES_PER_PAGE = 7;
 
 export default function Favorites() {
-    const { authorized, favoritesMoviesIds, loading } = useUser();
+    const { authorized, favoritesMoviesIds, loading, isDarkTheme } = useUser();
     const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        setCurrentPage(1); // Сбрасываем страницу при изменении избранных фильмов
+        setCurrentPage(1);
     }, [favoritesMoviesIds]);
 
     const totalPages = Math.ceil((favoritesMoviesIds?.length || 0) / MOVIES_PER_PAGE);
@@ -28,12 +28,16 @@ export default function Favorites() {
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Прокрутка вверх
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     if (!authorized) {
         return (
-            <div className={`${styles.container} ${styles.favoritesLoginContainer}`}>
+            <div className={
+                !isDarkTheme ?
+                    `${styles.container} ${styles.favoritesLoginContainer}`
+                    :
+                    `${styles.containerDark} ${styles.favoritesLoginContainerDark}`}>
                 <p className={styles.favoritesLoginDiscription}>
                     Please register or log in
                 </p>
@@ -57,7 +61,11 @@ export default function Favorites() {
     }
 
     return (
-        <div className={`${styles.container} ${styles.favorites}`}>
+        <div className={
+            !isDarkTheme ?
+                `${styles.container} ${styles.favorites}`
+                :
+                `${styles.containerDark} ${styles.favoritesDark}`}>
             {favoritesMoviesIds?.length === 0 ? (
                 <p className={styles.emptyMessage}>You have no favorite movies yet.</p>
             ) : (
@@ -74,7 +82,7 @@ export default function Favorites() {
                         ))}
                     </div>
 
-                    {totalPages > 1 && ( // Показываем пагинацию только если больше 1 страницы
+                    {totalPages > 1 && (
                         <div className={styles.pagination}>
                             <button
                                 className={`${styles.pageButton} ${currentPage === 1 ? styles.disabled : ''}`}

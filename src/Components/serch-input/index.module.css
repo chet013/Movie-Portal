@@ -20,11 +20,6 @@
     }
 }
 
-.search::placeholder {
-    color: #999898;
-    font-style: italic;
-}
-
 .clearButton {
     position: absolute;
     top: 50%;

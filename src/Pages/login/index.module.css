@@ -1,5 +1,10 @@
-.loginPage {
+.loginPage,
+.loginPageDark {
     display: flex;
     justify-content: center;
     min-height: 84vh;
+}
+
+.loginPageDark {
+    background-color: rgba(0, 0, 0, 0.787);
 }

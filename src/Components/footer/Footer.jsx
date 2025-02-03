@@ -1,8 +1,15 @@
 import styles from './index.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../app/context';
 
 export const Footer = () => {
     const navigate = useNavigate();
+    const { isDarkTheme, setIsDarkTheme } = useUser()
+
+    const darkThemeCange = () => {
+        setIsDarkTheme(!isDarkTheme)
+        console.log(isDarkTheme)
+    }
 
     return (
         <div className={styles.footer}>
@@ -17,13 +24,16 @@ export const Footer = () => {
                 />
             </button>
             <p>Footer</p>
-            <div className={styles.inform}>
+            <button
+                className={styles.darkTheme}
+                onClick={darkThemeCange}
+            >
                 <img
                     className={styles.image}
                     src={'/darck-theme.png'}
                     alt={'img'}
                 />
-            </div>
+            </button>
         </div >
     );
 };

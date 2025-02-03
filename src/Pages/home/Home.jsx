@@ -9,6 +9,7 @@ import { MovieCard } from '../../Components/movie-card/MovieCard';
 import SearchField from '../../Components/serch-input/Serchfild';
 import { ErrorPage } from '../404/Errorpage';
 import { useGetMoviesMutation } from '../../api/movieApiSlice';
+import { useUser } from '../../app/context';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -17,6 +18,8 @@ export default function Home() {
 
     const [isNotFound, setIsNotFound] = useState(false);
     const [sortOrder, setSortOrder] = useState('default');
+
+    const { isDarkTheme } = useUser()
 
     const [getMovies, { data, error, isLoading }] = useGetMoviesMutation();
 
@@ -62,11 +65,11 @@ export default function Home() {
     }) : [];
 
     return (
-        <div className={styles.home}>
+        <div className={!isDarkTheme ? styles.home : styles.darkHome}>
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className={styles.movieList}>
+                <div className={!isDarkTheme ? styles.movieList : styles.darkMovieList}>
                     <h1>Movies</h1>
                     <SearchField onSearch={handleSearch} />
                     <div className={styles.filters}>

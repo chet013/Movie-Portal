@@ -10,7 +10,7 @@ export default function Movie() {
     const navigate = useNavigate();
     const { id } = useParams();
     const { data, error, isLoading } = useGetFilmQuery(id);
-    const { authorized, toggleFavorite } = useUser();
+    const { authorized, toggleFavorite, isDarkTheme } = useUser();
     const movie = data;
 
     const [isFavorite, setIsFavorite] = useState(false);
@@ -58,17 +58,17 @@ export default function Movie() {
     }
 
     return (
-        <div className={styles.movie}>
+        <div className={!isDarkTheme ? styles.movie : styles.movieDark}>
             {isLoading ? (
                 <Loader className={styles.loader} />
             ) : (
                 <>
-                    <div className={styles.movieDetails}>
+                    <div className={!isDarkTheme ? styles.movieDetails : styles.movieDetailsDark}>
                         <div className={styles.titleWrapper}>
                             <h1>{movie.Title}</h1>
                             <img src={movie.Poster} alt={movie.Title} className={styles.poster} />
                         </div>
-                        <div className={styles.descriptionWrapper}>
+                        <div className={!isDarkTheme ? styles.descriptionWrapper : styles.descriptionWrapperDark}>
                             <p>Year: {movie.Year}</p>
                             <p>Genre: {movie.Genre}</p>
                             <p>Plot: {movie.Plot}</p>
