@@ -8,15 +8,11 @@ export const UserProvider = ({ children }) => {
     const [favoritesMoviesIds, setFavoritesMoviesIds] = useState([]);
     const [loading, setLoading] = useState(true); // Состояние для ожидания загрузки данных
 
-    // Восстановление данных пользователя из localStorage при загрузке приложения
-
     const toggleFavorite = (movieId) => {  // Сразу отображаем в избранном
         setFavoritesMoviesIds((prevFavorites) => {
             const updatedFavorites = prevFavorites.includes(movieId)
                 ? prevFavorites.filter((id) => id !== movieId)
                 : [...prevFavorites, movieId];
-
-            // Обновляем localStorage
             const storedData = JSON.parse(localStorage.getItem('moviPortal')) || { users: [] };
             const updatedUsers = storedData.users.map((u) =>
                 u.login === user ? { ...u, favoritesMoviesIds: updatedFavorites } : u

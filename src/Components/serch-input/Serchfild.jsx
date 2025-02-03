@@ -5,7 +5,7 @@ import styles from './index.module.css'
 const Searchfild = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
-    const debouncedSearchTerm = useDebounce(searchTerm, 1200);
+    const debouncedSearchTerm = useDebounce(searchTerm, 1800);
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);

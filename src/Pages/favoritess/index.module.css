@@ -12,13 +12,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 84vh;
+}
+
+.moviesGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: flex-start;
-    padding: 20px;
     max-width: 1000px;
     margin: 0 auto;
     gap: 10px;
-    min-width: 75%;
-    min-height: 84vh;
+    width: 100%;
 }
 
 .favoritesLoginContainer {
@@ -64,4 +71,36 @@
     gap: 10px;
     min-width: 75%;
     min-height: 84vh;
+}
+
+.pagination {
+    display: flex;
+    margin-top: 20px;
+    gap: 5px;
+}
+
+.pageButton {
+    border: solid 1px rgba(0, 0, 0, 0);
+    border-radius: 2px;
+    background-color: rgba(252, 252, 252, 0);
+    cursor: pointer;
+}
+
+.pageButton:hover {
+    border: solid 1px black;
+    background-color: rgba(231, 200, 200, 0.588);
+}
+
+.pageButton:active {
+    background-color: rgba(195, 186, 186, 0.588);
+}
+
+.activePage {
+    border: solid 1px black;
+    background-color: rgba(231, 200, 200, 0.588);
+}
+
+.disabled {
+    opacity: 0.8;
+    pointer-events: none;
 }

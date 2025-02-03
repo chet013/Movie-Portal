@@ -12,9 +12,12 @@
 .logoBtn {
     position: absolute;
     background-color: inherit;
+    border-radius: 5px;
+    border: none;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
+    cursor: pointer;
 }
 
 .inform {

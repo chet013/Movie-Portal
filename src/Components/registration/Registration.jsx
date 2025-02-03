@@ -143,7 +143,7 @@ const Registration = () => {
                 {error && <p className={styles.formError}>{error}</p>}
                 <button
                     type="submit"
-                    className={styles.button}
+                    className={styles.buttonLogReg}
                     disabled={isDisabled}
                 >
                     {isRegistered ? 'Login' : 'Register'}
