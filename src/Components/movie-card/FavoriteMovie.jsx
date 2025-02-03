@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { MovieCard } from './MovieCard';
 import { useGetFilmQuery } from '../../api/movieApiSlice';
 
@@ -5,7 +6,7 @@ export const FavoriteMovie = ({ id }) => {
     const { data: movie, error, isLoading } = useGetFilmQuery(id);
 
     if (isLoading) return <p>Loading...</p>;
-    if (error) return <p >Error loading movie</p>;
+    if (error) return <p>Error loading movie</p>;
     if (!movie) return null;
 
     return (
@@ -16,3 +17,9 @@ export const FavoriteMovie = ({ id }) => {
         />
     );
 };
+
+FavoriteMovie.propTypes = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
+
+export default FavoriteMovie;

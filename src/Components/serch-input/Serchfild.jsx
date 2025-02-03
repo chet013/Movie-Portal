@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import useDebounce from '../../features/useDebounce';
-import styles from './index.module.css'
+import styles from './index.module.css';
 
 const Searchfild = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -35,9 +36,12 @@ const Searchfild = ({ onSearch }) => {
             <button className={styles.clearButton} onClick={clearInput}>
                 &#10005;
             </button>
-
         </div>
     );
+};
+
+Searchfild.propTypes = {
+    onSearch: PropTypes.func.isRequired,
 };
 
 export default Searchfild;
