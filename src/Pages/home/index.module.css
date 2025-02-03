@@ -6,7 +6,6 @@
     justify-content: flex-start;
     min-height: 84vh;
     padding: 20px;
-    max-width: 1000px;
     margin: 0 auto
 }
 
@@ -24,9 +23,9 @@
 .darkMovieList {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
-    min-width: 75%;
-
+    width: 70%;
 }
 
 .darkMovieList {
@@ -42,6 +41,7 @@
 }
 
 .movieButton {
+    width: 85%;
     cursor: pointer;
     border: solid 1px rgb(181, 124, 88);
     border-radius: 7px;
@@ -64,4 +64,5 @@
 .filters {
     display: flex;
     gap: 10px;
+    margin-right: auto;
 }
