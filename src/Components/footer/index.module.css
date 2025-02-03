@@ -7,9 +7,21 @@
     background-color: #343b45;
 }
 
-.logoBtn {
+.logoBtn,
+.darkTheme {
     border-style: none;
+    border-radius: 5px;
     cursor: pointer;
     background-color: inherit;
     margin: 5px 0;
+}
+
+.logoBtn:hover,
+.darkTheme:hover {
+    background-color: rgba(111, 99, 99, 0.561);
+}
+
+.logoBtn:active,
+.darkTheme:active {
+    background-color: rgb(111, 99, 99);
 }
