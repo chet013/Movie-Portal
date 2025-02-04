@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import { Layout } from './layuot/Layout';
@@ -18,6 +18,7 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route index element={<Navigate to="/home" replace />} />
             <Route
               path="home"
               element={
