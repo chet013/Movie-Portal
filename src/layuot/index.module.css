@@ -1,5 +1,4 @@
 .layout {
-    /* background-color: #f0e0db; */
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 0.2) 0%, rgba(9, 112, 121, 0.057882528011204526) 35%, rgba(255, 145, 0, 0.366) 100%);
     min-height: 84vh;
