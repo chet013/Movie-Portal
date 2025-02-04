@@ -18,7 +18,7 @@ export const Footer = () => {
             >
                 <img
                     className={styles.image}
-                    src={'/logo.png'}
+                    src={`${process.env.PUBLIC_URL}/logo.png`}
                     alt={'img'}
                 />
             </button>
@@ -29,7 +29,7 @@ export const Footer = () => {
             >
                 <img
                     className={styles.image}
-                    src={'/darck-theme.png'}
+                    src={`${process.env.PUBLIC_URL}/darck-theme.png`}
                     alt={'img'}
                 />
             </button>

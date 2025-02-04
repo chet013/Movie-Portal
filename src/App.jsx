@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import { Layout } from './layuot/Layout';
@@ -15,7 +15,7 @@ const Login = lazy(() => import('./Pages/login/Login'));
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route
@@ -60,7 +60,7 @@ function App() {
             />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 }

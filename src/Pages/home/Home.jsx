@@ -75,7 +75,7 @@ export default function Home() {
                     <div className={styles.filters}>
                         <img
                             className={styles.imageFilter}
-                            src={'/filter.png'}
+                            src={`${process.env.PUBLIC_URL}/filter.png`}
                             alt={'filter'}
                         />
 

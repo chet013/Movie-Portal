@@ -34,7 +34,7 @@ export const Header = () => {
             >
                 <img
                     className={styles.imageLogo}
-                    src={'/logo.png'}
+                    src={`${process.env.PUBLIC_URL}/logo.png`}
                     alt={'logo'}
                 />
             </button>
