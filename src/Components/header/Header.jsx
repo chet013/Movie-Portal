@@ -4,6 +4,7 @@ import { useUser } from '../../app/context';
 import { Bar } from '../bar/Bar';
 import styles from './index.module.css';
 import { Button } from 'antd';
+import logo from '../../picktures/logo.png'
 
 export const Header = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ export const Header = () => {
             >
                 <img
                     className={styles.imageLogo}
-                    src={`${process.env.PUBLIC_URL}/logo.png`}
+                    src={logo}
                     alt={'logo'}
                 />
             </button>

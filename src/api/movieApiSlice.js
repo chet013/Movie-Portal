@@ -3,7 +3,7 @@ import { API_KEY } from './constants';
 
 export const movieApi = createApi({
     reducerPath: 'movieApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://www.omdbapi.com/' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://www.omdbapi.com/' }),
     endpoints: (builder) => ({
         getMovies: builder.mutation({
             query: (searchTerm) => `?apikey=${API_KEY}&s=${searchTerm}`,

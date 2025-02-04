@@ -1,6 +1,8 @@
 import styles from './index.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../app/context';
+import logo from '../../picktures/logo.png'
+import darkTheme from '../../picktures/darck-theme.png'
 
 export const Footer = () => {
     const navigate = useNavigate();
@@ -18,7 +20,7 @@ export const Footer = () => {
             >
                 <img
                     className={styles.image}
-                    src={`${process.env.PUBLIC_URL}/logo.png`}
+                    src={logo}
                     alt={'img'}
                 />
             </button>
@@ -29,7 +31,7 @@ export const Footer = () => {
             >
                 <img
                     className={styles.image}
-                    src={`${process.env.PUBLIC_URL}/darck-theme.png`}
+                    src={darkTheme}
                     alt={'img'}
                 />
             </button>

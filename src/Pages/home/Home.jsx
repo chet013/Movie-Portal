@@ -10,6 +10,7 @@ import SearchField from '../../Components/serch-input/Serchfild';
 import { ErrorPage } from '../404/Errorpage';
 import { useGetMoviesMutation } from '../../api/movieApiSlice';
 import { useUser } from '../../app/context';
+import fiters from '../../picktures/filter.png'
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -75,7 +76,7 @@ export default function Home() {
                     <div className={styles.filters}>
                         <img
                             className={styles.imageFilter}
-                            src={`${process.env.PUBLIC_URL}/filter.png`}
+                            src={fiters}
                             alt={'filter'}
                         />
 
