@@ -37,7 +37,7 @@ export default function Movie() {
             if (user.login === currentUser.login) {
                 const updatedFavorites = isFavorite
                     ? user.favoritesMoviesIds.filter((movieId) => movieId !== id)
-                    : [...new Set([...user.favoritesMoviesIds, id])]; // Убираем дубли
+                    : [...new Set([...user.favoritesMoviesIds, id])];
 
                 return { ...user, favoritesMoviesIds: updatedFavorites };
             }

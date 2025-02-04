@@ -8,7 +8,6 @@ export const Footer = () => {
 
     const darkThemeCange = () => {
         setIsDarkTheme(!isDarkTheme)
-        console.log(isDarkTheme)
     }
 
     return (

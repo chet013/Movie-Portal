@@ -18,7 +18,6 @@ export const Header = () => {
         }));
 
         localStorage.setItem('moviPortal', JSON.stringify({ users: updatedUsers }));
-
         localStorage.removeItem('current-user');
 
         setUser(null);

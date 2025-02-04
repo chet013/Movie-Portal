@@ -9,9 +9,7 @@ export const UserProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [isDarkTheme, setIsDarkTheme] = useState(false)
 
-
-
-    const toggleFavorite = (movieId) => {  // Сразу отображаем в избранном
+    const toggleFavorite = (movieId) => {
         setFavoritesMoviesIds((prevFavorites) => {
             const updatedFavorites = prevFavorites.includes(movieId)
                 ? prevFavorites.filter((id) => id !== movieId)
