@@ -46,3 +46,27 @@
     align-items: center;
     flex: 1;
 }
+
+.mobileHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 60px;
+    background-color: #f8f9fa;
+    padding: 2px 5px;
+    background-color: #433445;
+}
+
+.mobileHeader .inform {
+    top: 50%;
+    transform: none;
+}
+
+.loginBtn {
+    background-color: inherit;
+    border-radius: 5px;
+    border: none;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

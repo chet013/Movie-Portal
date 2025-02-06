@@ -1,5 +1,6 @@
 import styles from './index.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useDetectDevice } from '../../features/useDetectDevice';
 import { Button } from 'antd';
 
 const links = [
@@ -9,10 +10,11 @@ const links = [
 
 export const Bar = () => {
 
+    const isMobile = useDetectDevice()
     const navigate = useNavigate();
 
     return (
-        <div className={styles.links}>
+        <div className={`${styles.links} ${isMobile ? styles.mobileLinks : ''}`}>
             {
                 links.map((link) => (
                     <Button

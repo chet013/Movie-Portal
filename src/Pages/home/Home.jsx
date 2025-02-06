@@ -10,9 +10,11 @@ import SearchField from '../../Components/serch-input/Serchfild';
 import { ErrorPage } from '../404/Errorpage';
 import { useGetMoviesMutation } from '../../api/movieApiSlice';
 import { useUser } from '../../app/context';
+import { useDetectDevice } from '../../features/useDetectDevice';
 import fiters from '../../picktures/filter.png'
 
 export default function Home() {
+    const isMobile = useDetectDevice()
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const movies = useSelector(selectMovies);
@@ -66,11 +68,19 @@ export default function Home() {
     }) : [];
 
     return (
-        <div className={!isDarkTheme ? styles.home : styles.darkHome}>
+        <div className={`
+        ${isMobile ? styles.homeMobile : styles.home} 
+        ${!isDarkTheme ? styles.home : styles.darkHome} 
+        ${isDarkTheme && isMobile ? styles.darkHomeMobile : ''}
+        `}>
             {isLoading ? (
-                <Loader />
+                <Loader className={styles.loader} />
             ) : (
-                <div className={!isDarkTheme ? styles.movieList : styles.darkMovieList}>
+                <div className={`
+                    ${!isDarkTheme ? styles.movieList : styles.darkMovieList}
+                    ${isMobile ? styles.movieListMobile : ''}
+                    ${isMobile && !isDarkTheme ? styles.movieListMobileDark : ''}
+                `}>
                     <h1>Movies</h1>
                     <SearchField onSearch={handleSearch} />
                     <div className={styles.filters}>

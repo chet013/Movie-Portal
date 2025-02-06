@@ -5,12 +5,14 @@ import { useGetFilmQuery } from '../../api/movieApiSlice';
 import styles from './index.module.css';
 import { useState, useEffect } from 'react';
 import { useUser } from '../../app/context';
+import { useDetectDevice } from '../../features/useDetectDevice';
 
 export default function Movie() {
     const navigate = useNavigate();
     const { id } = useParams();
     const { data, error, isLoading } = useGetFilmQuery(id);
     const { authorized, toggleFavorite, isDarkTheme } = useUser();
+    const isMobile = useDetectDevice()
     const movie = data;
 
     const [isFavorite, setIsFavorite] = useState(false);
@@ -58,13 +60,21 @@ export default function Movie() {
     }
 
     return (
-        <div className={!isDarkTheme ? styles.movie : styles.movieDark}>
+        <div className={`
+            ${!isDarkTheme ? styles.movie : styles.movieDark} 
+            ${isMobile ? styles.movieMobile : ''} 
+            ${!isDarkTheme && isMobile ? styles.movieMobileDark : ''}
+        `}>
             {isLoading ? (
                 <Loader className={styles.loader} />
             ) : (
                 <>
-                    <div className={!isDarkTheme ? styles.movieDetails : styles.movieDetailsDark}>
-                        <div className={styles.titleWrapper}>
+                    <div className={`
+                        ${!isDarkTheme ? styles.movieDetails : styles.movieDetailsDark}
+                        ${isMobile ? styles.movieDetailsMobile : ''}
+                        ${isMobile && isDarkTheme ? styles.movieDetailsMobileDark : ''}
+                        `}>
+                        <div className={!isDarkTheme ? styles.titleWrapper : styles.titleWrapperDark}>
                             <h1>{movie.Title}</h1>
                             <img src={movie.Poster} alt={movie.Title} className={styles.poster} />
                         </div>

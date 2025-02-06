@@ -3,6 +3,7 @@ import styles from './index.module.css';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { useUser } from '../../app/context';
+import { useDetectDevice } from '../../features/useDetectDevice';
 import { FavoriteMovie } from '../../Components/movie-card/FavoriteMovie';
 import { Loader } from '../../Components/loader/Loader';
 
@@ -11,6 +12,7 @@ const MOVIES_PER_PAGE = 7;
 export default function Favorites() {
     const { authorized, favoritesMoviesIds, loading, isDarkTheme } = useUser();
     const navigate = useNavigate();
+    const isMobile = useDetectDevice();
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -62,10 +64,7 @@ export default function Favorites() {
 
     return (
         <div className={
-            !isDarkTheme ?
-                `${styles.container} ${styles.favorites}`
-                :
-                `${styles.containerDark} ${styles.favoritesDark}`}>
+            !isDarkTheme ? `${styles.container} ` : `${styles.containerDark} ${styles.favoritesDark}`}>
             {favoritesMoviesIds?.length === 0 ? (
                 <p className={styles.emptyMessage}>You have no favorite movies yet.</p>
             ) : (

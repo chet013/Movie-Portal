@@ -6,16 +6,9 @@
     justify-content: flex-start;
     padding: 20px;
     margin: 0 auto;
-}
-
-.favorites {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    width: 100%;
     min-height: 84vh;
 }
+
 
 .moviesGrid {
     display: flex;

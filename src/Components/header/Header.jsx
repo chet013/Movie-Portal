@@ -1,13 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../app/context';
+import { useDetectDevice } from '../../features/useDetectDevice';
 import { Bar } from '../bar/Bar';
 import styles from './index.module.css';
 import { Button } from 'antd';
 import logo from '../../picktures/logo.png'
+import autorization from '../../picktures/autorization.png'
 
 export const Header = () => {
     const navigate = useNavigate();
+    const isMobile = useDetectDevice();
     const { user, authorized, setUser, setAuthorized } = useUser();
 
     const handleExitLogin = () => {
@@ -28,7 +31,7 @@ export const Header = () => {
     };
 
     return (
-        <div className={styles.header}>
+        <div className={`${styles.header} ${isMobile ? styles.mobileHeader : ''}`}>
             <button
                 className={styles.logoBtn}
                 onClick={() => navigate('home', { replace: false })}
@@ -41,19 +44,35 @@ export const Header = () => {
             </button>
             <Bar />
             <div className={styles.inform}>
-                <p className={styles.logInfo}>{authorized ? `User: ${user}` : 'Please log in'}</p>
-                <Button
-                    onClick={() =>
-                        authorized ? handleExitLogin() : navigate('/login', { replace: false })
-                    }
-                    type="primary"
-                    htmlType="submit"
-                    color="default"
-                    variant="solid"
-                    className={styles.logBtn}
-                >
-                    {authorized ? 'Exit' : 'Login / Registration'}
-                </Button>
+                {!isMobile ? <p className={styles.logInfo}>{authorized ? `User: ${user}` : 'Please log in'}</p> : null}
+                {isMobile ?
+                    <button
+                        onClick={() =>
+                            authorized ? handleExitLogin() : navigate('/login', { replace: false })
+                        }
+                        className={styles.loginBtn}
+                    >
+                        <img
+                            className={styles.imageLogo}
+                            src={autorization}
+                            alt={'autorization'}
+                        />
+                    </button>
+                    :
+                    <Button
+                        onClick={() =>
+                            authorized ? handleExitLogin() : navigate('/login', { replace: false })
+                        }
+                        type="primary"
+                        htmlType="submit"
+                        color="default"
+                        variant="solid"
+                        className={styles.logBtn}
+                    >
+                        {authorized ? 'Exit' : 'Login / Registration'}
+
+                    </Button>}
+
             </div>
         </div>
     );
