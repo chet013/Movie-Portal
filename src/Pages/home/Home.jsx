@@ -7,11 +7,12 @@ import { selectMovies } from '../../redux/selectors/selectMovies';
 import { Loader } from '../../Components/loader/Loader';
 import { MovieCard } from '../../Components/movie-card/MovieCard';
 import SearchField from '../../Components/serch-input/Serchfild';
+import Screensaver from '../../Components/screensaver/Screensaver';
 import { ErrorPage } from '../404/Errorpage';
 import { useGetMoviesMutation } from '../../api/movieApiSlice';
 import { useUser } from '../../app/context';
 import { useDetectDevice } from '../../features/useDetectDevice';
-import fiters from '../../picktures/filter.png'
+import filters from '../../picktures/filter.png'
 
 export default function Home() {
     const isMobile = useDetectDevice()
@@ -86,7 +87,7 @@ export default function Home() {
                     <div className={styles.filters}>
                         <img
                             className={styles.imageFilter}
-                            src={fiters}
+                            src={filters}
                             alt={'filter'}
                         />
 
@@ -103,7 +104,7 @@ export default function Home() {
                     </div>
 
                     {isNotFound ? (
-                        <div className={styles.notFound}>Ничего не найдено :(</div>
+                        <Screensaver />
                     ) : sortedMovies.length > 0 ? (
                         sortedMovies.map((movie) => (
                             <button
@@ -120,7 +121,7 @@ export default function Home() {
                             </button>
                         ))
                     ) : (
-                        <div className={styles.notFound}>Начните поиск фильмов!</div>
+                        <Screensaver />
                     )}
                 </div>
             )}
