@@ -29,7 +29,7 @@ const Searchfild = ({ onSearch }) => {
                 type="text"
                 value={searchTerm}
                 onChange={handleChange}
-                placeholder="Start typing to search movie..."
+                placeholder="Start typing to search movie.."
                 className={styles.search}
             />
 
