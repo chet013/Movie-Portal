@@ -1,0 +1,23 @@
+.postersContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.poster {
+    width: 120px;
+    object-fit: cover;
+    transition: opacity 2s ease-in-out;
+    border: solid 1px #0800ff;
+    box-shadow: 0 0 20px rgba(255, 166, 0, 0.9);
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.visible {
+    opacity: 0.8;
+}
